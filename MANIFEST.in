@@ -1,0 +1,3 @@
+graft STOCK_PREDICT
+global-exclude *.py[cod] __pycache__ *.so *.ipynb
+recursive-exclude  STOCK_PREDICT/jupy *
