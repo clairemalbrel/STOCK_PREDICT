@@ -9,6 +9,7 @@ dist/
 groupama/data/base_pno.*
 .DS_Store
 .idea/
+STOCK_PREDICT/data/
 /data/
 /data/
 STOCK_PREDICT/data/
