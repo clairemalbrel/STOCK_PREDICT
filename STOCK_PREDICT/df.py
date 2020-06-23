@@ -1,5 +1,9 @@
 
-USERNAME='clairemalbrel'
+USERNAME='Jean-Phi-ben'
+# path1 et path2 à rajouter au notebook avant de charger get_data avec son path individuel
+# path1=f'/home/jp/code/STOCK_PREDICT/data/upload_DJIA_table.csv'
+# path2=f'/home/jp/code/STOCK_PREDICT/data/Combined_News_DJIA.csv'
+
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
@@ -7,14 +11,14 @@ import string
 import pandas as pd
 
 
-def get_data(nrows):
-    path1=f'/Users/{USERNAME}/code/{USERNAME}/STOCK_PREDICT/data/datasets-129-792900-upload_DJIA_table.csv'
-    path2=f'/Users/{USERNAME}/code/{USERNAME}/STOCK_PREDICT/data/Combined_News_DJIA.csv'
+def get_data(path1, path2, nrows):
+    # path1=f'/home/jp/code/STOCK_PREDICT/data/upload_DJIA_table.csv'
+    # path2=f'/home/jp/code/STOCK_PREDICT/data/Combined_News_DJIA.csv'
     df_djia = pd.read_csv(path1, nrows=nrows)
     df_news = pd.read_csv(path2,nrows=nrows)
     return df_djia, df_news
 
-def merge_df():
+def merge_df(df_djia, df_news):
     #merge dataset
     df_news['Date'] = pd.to_datetime(df_news['Date'])
     df_djia['Date'] = pd.to_datetime(df_djia['Date'])
