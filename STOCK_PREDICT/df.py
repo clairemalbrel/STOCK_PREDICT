@@ -8,8 +8,8 @@ import pandas as pd
 
 
 def get_data(nrows):
-    path1=f'/Users/{USERNAME}/code/{USERNAME}/STOCK_PREDICT/STOCK_PREDICT/data/datasets-129-792900-upload_DJIA_table.csv'
-    path2=f'/Users/{USERNAME}/code/{USERNAME}/STOCK_PREDICT/STOCK_PREDICT/data/Combined_News_DJIA.csv'
+    path1=f'/Users/{USERNAME}/code/{USERNAME}/STOCK_PREDICT/data/datasets-129-792900-upload_DJIA_table.csv'
+    path2=f'/Users/{USERNAME}/code/{USERNAME}/STOCK_PREDICT/data/Combined_News_DJIA.csv'
     df_djia = pd.read_csv(path1, nrows=nrows)
     df_news = pd.read_csv(path2,nrows=nrows)
     return df_djia, df_news
@@ -25,7 +25,7 @@ def get_features(df):
     # get percentage change
     df['change'] = df['Open'].pct_change()
     # remove first row
-    df= df[1:]
+    df['change'] = df['change'].shift(-1)
     return df
 
 def categorical(x):
