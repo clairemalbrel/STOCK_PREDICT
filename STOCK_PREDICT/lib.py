@@ -1,3 +1,5 @@
+
+
 # -*- coding: UTF-8 -*-
 # Copyright (C) 2018 Jean Bizot <jean@styckr.io>
 """ Main lib for STOCK_PREDICT Project
@@ -6,6 +8,7 @@
 from os.path import split
 import pandas as pd
 import datetime
+import params
 
 pd.set_option('display.width', 200)
 
