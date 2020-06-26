@@ -29,7 +29,7 @@ class Data:
 		#df_news = pd.read_csv(df_news)
 
 		self.df_djia = pd.read_csv(f'{directory}data/datasets-129-792900-upload_DJIA_table.csv')
-		self.df_news = pd.read_csv(f'{directory}data/Combined_News_DJIA.csv')
+		self.df_news = pd.read_csv(f'{directory}data/combined_stock_data.csv')
 
 
 	def clean_df(self):
@@ -38,32 +38,36 @@ class Data:
 		df_news = self.df_news
 		df_news['Date'] = pd.to_datetime(df_news['Date'])
 		df_djia['Date'] = pd.to_datetime(df_djia['Date'])
-		df = df_news.merge(df_djia)
+		df_news['combined'] = df_news[df_news.columns[3:28]].apply(lambda row: '_'.join(row.values.astype(str)), axis=1)
 
-		# percentage change
+		# clean news
+		df_news['cleaned'] = df_news['combined'].apply(clean)
+		df = df_news[['Date', 'Label', 'Subjectivity', 'Objectivity', 'Positive','Negative', 'Neutral', 'cleaned']].merge(df_djia)
+		# percentage change to categorical
 		df['change'] = df['Open'].pct_change()
-		# remove first row
 		df['change'] = df['change'].shift(-1)
-		#
 		df['target'] = df['change'].apply(categorical)
-		# Group news
-		cols = df.columns[2:]
-		df['combined'] = df[cols].apply(lambda row: '_'.join(row.values.astype(str)), axis=1)
-		#
-		df['cleaned'] = df['combined'].apply(clean)
-		# Sentiment scores
-		df['polarity'] = df['cleaned'].apply(polarity)
-		df['subjectivity'] = df['cleaned'].apply(subjectivity)
+		df.index = df.index.sort_values()
 
-        # Vader features
-		df['compound'] = df['cleaned'].apply(compound)
-		df['negative'] = df['cleaned'].apply(negative)
-		df['neutrale'] = df['cleaned'].apply(neutrale)
-		df['positive'] = df['cleaned'].apply(positive)
-		return df
+		# missing values
+		df = df.iloc[:-1]
+		# Replace missing values with mean
+		nan_list = ['Subjectivity', 'Objectivity', 'Positive', 'Negative', 'Neutral']
+		for col in nan_list:
+			df[col] = df[col].fillna(df[col].mean())
 
+		# Train test split
+		y = df['target']
+		# Define eligible Y variable
+		X = df.drop('Label', axis = 1)
+		X = X.drop('target', axis = 1)
+		X = X.drop('Date', axis = 1)
+		X = X.drop('change', axis = 1)
+		X = X.drop('cleaned', axis = 1)
 
-	if __name__ == "__main__":
-		df = Data().clean_df()
-		print(df.shape)
+		# train/test split
+		train_size = int(len(X.index) * 0.7)
+		X_train, X_test = X.loc[0:train_size, :], X.loc[train_size: len(X.index), :]
+		y_train, y_test = y[0:train_size+1], y.loc[train_size: len(X.index)]
 
+		return df, X_train, X_test, y_train, y_test

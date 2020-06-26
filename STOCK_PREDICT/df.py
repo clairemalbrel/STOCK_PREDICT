@@ -67,7 +67,7 @@ def clean(text):
         review1 = text.replace(punctuation, ' ') # Remove Punctuation
 
     lowercased = text.lower() # Lower Case
-    without_b=text.replace(" b ","")
+    without_b=text.replace("b ","")
     without_b=text.replace("b'","")
     without_b=text.replace('b"',"")
     tokenized = word_tokenize(without_b) # Tokenize

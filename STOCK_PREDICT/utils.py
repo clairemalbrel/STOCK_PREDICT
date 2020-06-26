@@ -22,12 +22,13 @@ def categorical(x):
 def clean(text):
 	punctuation = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
 	for punctuation in punctuation:
-		review1 = text.replace(punctuation, ' ') # Remove Punctuation
-	lowercased = text.lower() # Lower Case
-	without_b=text.replace(" b ","")
-	without_b=text.replace("b'","")
-	without_b=text.replace('b"',"")
-	tokenized = word_tokenize(without_b) # Tokenize
+		text = text.replace(punctuation, ' ') # Remove Punctuation
+	text = text.lower() # Lower Case
+	text=text.replace("b ","")
+	text=text.replace("b'","")
+	text=text.replace('b"',"")
+	text = ''.join(c for c in text if not c.isdigit())
+	tokenized = word_tokenize(text) # Tokenize
 	words_only = [word for word in tokenized if word.isalpha()] # Remove numbers
 	stop_words = set(stopwords.words('english')) # Make stopword list
 	without_stopwords = [word for word in words_only if not word in stop_words] # Remove Stop Words
@@ -36,52 +37,52 @@ def clean(text):
 	return " ".join(lemmatized)
 
 def polarity(text):
-    '''
-    positive vs negative sentiment
-    Textblob
-    '''
-    blob = TextBlob(text)
-    polarity = blob.sentiment[0]
-    return polarity
+		'''
+		positive vs negative sentiment
+		Textblob
+		'''
+		blob = TextBlob(text)
+		polarity = blob.sentiment[0]
+		return polarity
 
 def subjectivity(text):
-    '''
-    objectivity vs subjectivity
-    objectivity = 0, subjectivity 1
-    Textblob
-    '''
-    blob = TextBlob(text)
-    subjectivity = blob.sentiment[1]
-    return subjectivity
+		'''
+		objectivity vs subjectivity
+		objectivity = 0, subjectivity 1
+		Textblob
+		'''
+		blob = TextBlob(text)
+		subjectivity = blob.sentiment[1]
+		return subjectivity
 
 def compound(text):
-    '''
-    composure Vader
-    '''
-    analyzer = SentimentIntensityAnalyzer()
-    vs = analyzer.polarity_scores(text)
-    return vs['compound']
+		'''
+		composure Vader
+		'''
+		analyzer = SentimentIntensityAnalyzer()
+		vs = analyzer.polarity_scores(text)
+		return vs['compound']
 
 def negative(text):
-    '''
-    negativity sentiment Vader
-    '''
-    analyzer = SentimentIntensityAnalyzer()
-    vs = analyzer.polarity_scores(text)
-    return vs['neg']
+		'''
+		negativity sentiment Vader
+		'''
+		analyzer = SentimentIntensityAnalyzer()
+		vs = analyzer.polarity_scores(text)
+		return vs['neg']
 
 def neutrale(text):
-    '''
-    neutrality Vader
-    '''
-    analyzer = SentimentIntensityAnalyzer()
-    vs = analyzer.polarity_scores(text)
-    return vs['neu']
+		'''
+		neutrality Vader
+		'''
+		analyzer = SentimentIntensityAnalyzer()
+		vs = analyzer.polarity_scores(text)
+		return vs['neu']
 
 def positive(text):
-    '''
-    positivitiy Vader
-    '''
-    analyzer = SentimentIntensityAnalyzer()
-    vs = analyzer.polarity_scores(text)
-    return vs['pos']
+		'''
+		positivitiy Vader
+		'''
+		analyzer = SentimentIntensityAnalyzer()
+		vs = analyzer.polarity_scores(text)
+		return vs['pos']
