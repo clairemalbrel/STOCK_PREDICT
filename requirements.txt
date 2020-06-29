@@ -83,4 +83,4 @@ zipp==3.1.0
 nltk
 sklearn
 tensorflow
-
+memoized_property
