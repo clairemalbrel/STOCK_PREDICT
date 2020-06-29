@@ -21,10 +21,11 @@ from STOCK_PREDICT.data import Data
 
 data = Data()
 df, X_train, X_test, y_train, y_test = data.clean_df()
-
-st.markdown("# Stock Market Prediction using Sentiment Analysis")
+st.title("Stock Market Prediction using Sentiment Analysis")
+st.header("Customary quote")
 st.markdown("**Let's go**")
+st.dataframe(df.head())
 
-if __name__ == "__main__":
-    #df = read_data()
-    main()
+
+
+#if __name__ == "__main__":
