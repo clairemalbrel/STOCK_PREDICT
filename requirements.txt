@@ -119,8 +119,15 @@ widgetsnbextension==3.5.1
 wrapt==1.12.1
 yapf==0.30.0
 zipp==3.1.0
+<<<<<<< HEAD
 matplotlib
 seaborn
 textblob
 vaderSentiment
 statsmodels
+=======
+nltk
+sklearn
+tensorflow
+memoized_property
+>>>>>>> master
