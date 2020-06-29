@@ -1,4 +1,8 @@
 
+##########################################################################
+#     Data
+##########################################################################
+
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
@@ -9,6 +13,12 @@ from pathlib import Path
 import os
 import platform
 from STOCK_PREDICT.utils import *
+
+
+##########################################################################
+#     Code
+##########################################################################
+
 
 directory = str(Path.home()) + '/code/stock_market/STOCK_PREDICT/'
 if platform.system() == 'Windows':
