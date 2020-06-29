@@ -1,7 +1,7 @@
 
 <<<<<<< HEAD
 =======
-USERNAME='Jean-Phi-ben'
+USERNAME='clairemalbrel'
 # path1 et path2 à rajouter au notebook avant de charger get_data avec son path individuel
 # path1=f'/home/jp/code/STOCK_PREDICT/data/upload_DJIA_table.csv'
 # path2=f'/home/jp/code/STOCK_PREDICT/data/Combined_News_DJIA.csv'
@@ -25,9 +25,9 @@ import platform
 
 
 def get_data():
-    #path2=f'/Users/{USERNAME}/code/{USERNAME}/STOCK_PREDICT/data/Combined_News_DJIA.csv'
+    path2=f'/Users/{USERNAME}/code/{USERNAME}/STOCK_PREDICT/data/Combined_News_DJIA.csv'
     #username = getpass.getuser()
-    #path1=f'/Users/{USERNAME}/code/{USERNAME}/STOCK_PREDICT/data/datasets-129-792900-upload_DJIA_table.csv'
+    path1=f'/Users/{USERNAME}/code/{USERNAME}/STOCK_PREDICT/data/datasets-129-792900-upload_DJIA_table.csv'
     #df_news = pd.read_csv(f'{directory}/data/Combined_News_DJIA.csv')
 >>>>>>> master
 
@@ -35,13 +35,13 @@ def get_data():
     #df_news = os.path.join(os.path.dirname(__file__), '..', 'data', 'Combined_News_DJIA.csv')
     #df_djia = pd.read_csv(df_djia)
     #df_news = pd.read_csv(df_news)
-    directory = str(Path.home()) + '/code/stock_market/STOCK_PREDICT/'
-    if platform.system() == 'Windows':
-        directory = directory.replace('\\' ,'/')
+    #directory = str(Path.home()) + '/code/stock_market/STOCK_PREDICT/'
+    #if platform.system() == 'Windows':
+    #    directory = directory.replace('\\' ,'/')
 
 
-    df_djia = pd.read_csv(f'{directory}data/datasets-129-792900-upload_DJIA_table.csv')
-    df_news = pd.read_csv(f'{directory}data/Combined_News_DJIA.csv')
+    #df_djia = pd.read_csv(f'{directory}data/datasets-129-792900-upload_DJIA_table.csv')
+    #df_news = pd.read_csv(f'{directory}data/Combined_News_DJIA.csv')
 def get_data(path1, path2, nrows):
     # path1=f'/home/jp/code/STOCK_PREDICT/data/upload_DJIA_table.csv'
     # path2=f'/home/jp/code/STOCK_PREDICT/data/Combined_News_DJIA.csv'
