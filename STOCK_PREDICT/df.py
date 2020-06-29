@@ -1,10 +1,14 @@
 
-USERNAME='clairemalbrel'
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 import string
 import pandas as pd
+import getpass
+
+
+USERNAME=getpass.getuser()
+
 
 
 def get_data(nrows):
