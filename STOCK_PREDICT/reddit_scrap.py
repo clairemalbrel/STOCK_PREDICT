@@ -5,6 +5,7 @@ import datetime as dt
 import json
 import requests
 import pandas as pd
+
 def reddit():
   text = []
   name = []
@@ -17,6 +18,7 @@ def reddit():
           text.append(top['data']['title'])
           name.append(f'Top{i}')
           i = i + 1
+
   data = pd.DataFrame(text).T
   data.columns = name
   data = data.iloc[:,0:25]

@@ -126,5 +126,12 @@ textblob
 vaderSentiment
 statsmodels
 memoized_property
+textblob
+streamlit
+pytz
+joblib
+vaderSentiment.vaderSentiment
+requests
+json
 mlflow
 
