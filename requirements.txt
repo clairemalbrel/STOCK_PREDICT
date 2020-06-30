@@ -84,3 +84,10 @@ nltk
 sklearn
 tensorflow
 memoized_property
+textblob
+streamlit
+pytz
+joblib
+vaderSentiment.vaderSentiment
+requests
+json

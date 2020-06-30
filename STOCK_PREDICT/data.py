@@ -74,10 +74,18 @@ class Data:
 		X = X.drop('Date', axis = 1)
 		X = X.drop('change', axis = 1)
 		X = X.drop('cleaned', axis = 1)
+		train_size = int(len(X.index) * 0.7)
 
 		# train/test split
-		train_size = int(len(X.index) * 0.7)
+		df_train = df.loc[:train_size, :]
+		df_test = df.loc[train_size:, :]
 		X_train, X_test = X.loc[0:train_size, :], X.loc[train_size: len(X.index), :]
 		y_train, y_test = y[0:train_size+1], y.loc[train_size: len(X.index)]
 
-		return df, X_train, X_test, y_train, y_test
+		return df, X_train, X_test, y_train, y_test, df_train, df_test
+
+if __name__ == "__main__":
+    # Get and clean data
+    data = Data()
+    df, X_train, X_test, y_train, y_test, df_train, df_test = data.clean_df()
+    print(df.shape, X_train.shape, X_test.shape, y_train.shape, y_test.shape, df_train.shape, df_test.shape)

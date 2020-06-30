@@ -95,10 +95,10 @@ new['target'] = new['change'].apply(categorical)
 #     Merge and add to csv
 ##########################################################################
 
-y0 = data.merge(new, how='inner')
+y0 = data.merge(new, how='left')
 y0.head()
 print(y0)
 #y0.to_csv('stock_predict_daily.csv')
 
-y0.to_csv('../data/daily_data.csv', mode='a', header=True)
+y0.to_csv('../data/daily_data.csv', mode='a', header=False)
 

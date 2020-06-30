@@ -8,6 +8,7 @@ import requests
 import pandas as pd
 
 
+
 def reddit():
   text = []
   name = []
@@ -21,7 +22,6 @@ def reddit():
           name.append(f'Top{i}')
           i = i + 1
 
-  #full = clean("".join(str(text)))
   data = pd.DataFrame(text).T
   data.columns = name
   data = data.iloc[:,0:25]
