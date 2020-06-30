@@ -37,16 +37,16 @@ class Data:
 		#df_djia = pd.read_csv(df_djia)
 		#df_news = pd.read_csv(df_news)
 
-		#self.df_djia = pd.read_csv(f'{directory}data/datasets-129-792900-upload_DJIA_table.csv')
-		#self.df_news = pd.read_csv(f'{directory}data/combined_stock_data.csv')
+		self.df_djia = pd.read_csv(f'{directory}data/datasets-129-792900-upload_DJIA_table.csv')
+		self.df_news = pd.read_csv(f'{directory}data/combined_stock_data.csv')
 
 		#CLAIRE ONLY --> METTRE HASTAG SI VOUS ETES PAS CLAIRE
-		USERNAME='clairemalbrel'
-		path2=f'/Users/{USERNAME}/code/{USERNAME}/STOCK_PREDICT/data/combined_stock_data.csv'
+		#USERNAME='clairemalbrel'
+		#path2=f'/Users/{USERNAME}/code/{USERNAME}/STOCK_PREDICT/data/combined_stock_data.csv'
 		#username = getpass.getuser()
-		path1=f'/Users/{USERNAME}/code/{USERNAME}/STOCK_PREDICT/data/datasets-129-792900-upload_DJIA_table.csv'
-		self.df_djia = pd.read_csv(path1)
-		self.df_news = pd.read_csv(path2)
+		#path1=f'/Users/{USERNAME}/code/{USERNAME}/STOCK_PREDICT/data/datasets-129-792900-upload_DJIA_table.csv'
+		#self.df_djia = pd.read_csv(path1)
+		#self.df_news = pd.read_csv(path2)
 
 
 	def clean_df(self):

@@ -126,7 +126,6 @@ textblob
 vaderSentiment
 statsmodels
 memoized_property
-<<<<<<< HEAD
 textblob
 streamlit
 pytz

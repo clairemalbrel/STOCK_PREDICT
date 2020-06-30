@@ -1,7 +1,20 @@
 ##########################################################################
-#     Stock Predict dail dataset
+#     Data to predict
 ##########################################################################
 
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+import string
+import pandas as pd
+import getpass
+from pathlib import Path
+import os
+import platform
+from STOCK_PREDICT.utils import *
+import requests
+from datetime import datetime
+import time
 import datetime as dt
 import json
 import requests
@@ -21,34 +34,22 @@ import os
 import platform
 from STOCK_PREDICT.utils import *
 from SentencePolarity.sentiment import Sentiment
+from sklearn.preprocessing import RobustScaler, StandardScaler
+from STOCK_PREDICT.data import Data
+import joblib
+import requests
+from datetime import datetime
+import time
 
 ##########################################################################
-#     Reddit scrap
+#     Reddit
 ##########################################################################
 
-text = []
-name = []
-today = dt.datetime.combine(dt.date.today(), dt.datetime.min.time())
-response = requests.get('https://www.reddit.com/r/worldnews/top.json?limit=40', headers = {'User-agent': 'test'})
-tops = json.loads(response.text)['data']['children']
-i = 1
-for top in tops:
-    if dt.datetime.fromtimestamp(top['data']['created']) >= today:
-        text.append(top['data']['title'])
-        name.append(f'Top{i}')
-        i = i + 1
-
-#full = clean("".join(str(text)))
-data = pd.DataFrame(text).T
-data.columns = name
-data = data.iloc[:,0:25]
-data['Date'] = datetime.date(today)
-data['Date'] = data['Date'].dt.date
 
 
-##########################################################################
-#     Yahoo Finance
-##########################################################################
+def date_time(x):
+    x = datetime.date(x)
+    return x
 
 
 # Get timestamp of today
@@ -83,41 +84,47 @@ for i in re['prices']:
 new = pd.DataFrame(major_liste)
 new.columns = ['Date','Open','High','Low','Close','Volume','Adj Close']
 new['Date']=new['Date'].apply(date_time)
-
-y0 = daily.merge(new, how='left')
-print(y0.shape, daily.shape, new.shape)
-y0.head()
+new['Date']=pd.to_datetime(new['Date'])
+print(new)
 
 ##########################################################################
-#     Annexe
+#     Merge
 ##########################################################################
 
-"""
-# sort and calculate change
-new =  new.sort_values('Date')
-new['change'] = new['Open'].pct_change()
-new['change'] = new['change'].shift(-1)
+directory = str(Path.home()) + '/code/stock_market/STOCK_PREDICT/'
+if platform.system() == 'Windows':
+  directory = directory.replace('\\' ,'/')
 
-def categorical(x):
-    if x >= 0:
-        x = 1
-    if x < 0:
-        x = 0
-    if math.isnan(x):
-        x = 'today'
-    return x
+sentiment = pd.read_csv(f'{directory}data/20200630_sentiment.csv')
+sentiment['Date'] = pd.to_datetime(sentiment['Date'])
 
-new['target'] = new['change'].apply(categorical)
-"""
+check = sentiment.merge(new)
+print(check.shape)
+print(sentiment)
+print(check['Open'])
+check = check.iloc[:,27:]
+print(check.columns)
+check[['Subjectivity','Objectivity','Positive','Negative','Neutral','Open','High','Low','Close','Volume','Adj Close']]
+print(check.columns)
 ##########################################################################
-#     Merge and add to csv
+#     Scaler
 ##########################################################################
-"""
-y0 = data.merge(new, how='left')
-y0.head()
-print(y0)
-#y0.to_csv('stock_predict_daily.csv')
+data = Data()
+df, X_train, X_test, y_train, y_test, df_train, df_test = data.clean_df()
 
-y0.to_csv('data/daily_data.csv', mode='a', header=False)
+scaler = StandardScaler()
+scaler = scaler.fit(X_train)
+check = scaler.transform(check)
+print(check)
 
-"""
+##########################################################################
+#     Load model and predict
+##########################################################################
+pipeline = joblib.load('model.joblib')
+print("loaded model")
+
+res = pipeline.predict(check)
+if res > 0:
+  print('The Stock price will rise')
+if res < 0:
+  print('The Stock price will decrease')
