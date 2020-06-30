@@ -1,3 +1,7 @@
+##########################################################################
+#     Utils
+##########################################################################
+
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
@@ -10,7 +14,9 @@ import numpy as np
 from textblob import TextBlob
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
-
+##########################################################################
+#     Code
+##########################################################################
 
 def categorical(x):
 	if x > 0:
