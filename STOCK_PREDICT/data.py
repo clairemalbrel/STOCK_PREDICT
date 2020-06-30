@@ -28,25 +28,16 @@ if platform.system() == 'Windows':
 class Data:
 
 	def __init__(self):
-
-
-		#df_news = pd.read_csv(f'{directory}/data/Combined_News_DJIA.csv')
-
-		#df_djia = os.path.join(os.path.dirname(__file__), '..', 'data', 'datasets-129-792900-upload_DJIA_table.csv')
-		#df_news = os.path.join(os.path.dirname(__file__), '..', 'data', 'Combined_News_DJIA.csv')
-		#df_djia = pd.read_csv(df_djia)
-		#df_news = pd.read_csv(df_news)
-
-		#self.df_djia = pd.read_csv(f'{directory}data/datasets-129-792900-upload_DJIA_table.csv')
-		#self.df_news = pd.read_csv(f'{directory}data/combined_stock_data.csv')
+    #Rest of the team:
+		self.df_djia = pd.read_csv(f'{directory}data/datasets-129-792900-upload_DJIA_table.csv')
+		self.df_news = pd.read_csv(f'{directory}data/combined_stock_data.csv')
 
 		#CLAIRE ONLY --> METTRE HASTAG SI VOUS ETES PAS CLAIRE
-		USERNAME='clairemalbrel'
-		path2=f'/Users/{USERNAME}/code/{USERNAME}/STOCK_PREDICT/data/combined_stock_data.csv'
-		#username = getpass.getuser()
-		path1=f'/Users/{USERNAME}/code/{USERNAME}/STOCK_PREDICT/data/datasets-129-792900-upload_DJIA_table.csv'
-		self.df_djia = pd.read_csv(path1)
-		self.df_news = pd.read_csv(path2)
+		#USERNAME='clairemalbrel'
+		#path2=f'/Users/{USERNAME}/code/{USERNAME}/STOCK_PREDICT/data/combined_stock_data.csv'
+		#path1=f'/Users/{USERNAME}/code/{USERNAME}/STOCK_PREDICT/data/datasets-129-792900-upload_DJIA_table.csv'
+		#self.df_djia = pd.read_csv(path1)
+		#self.df_news = pd.read_csv(path2)
 
 
 	def clean_df(self):
@@ -81,10 +72,18 @@ class Data:
 		X = X.drop('Date', axis = 1)
 		X = X.drop('change', axis = 1)
 		X = X.drop('cleaned', axis = 1)
+		train_size = int(len(X.index) * 0.7)
 
 		# train/test split
-		train_size = int(len(X.index) * 0.7)
+		df_train = df.loc[:train_size, :]
+		df_test = df.loc[train_size:, :]
 		X_train, X_test = X.loc[0:train_size, :], X.loc[train_size: len(X.index), :]
 		y_train, y_test = y[0:train_size+1], y.loc[train_size: len(X.index)]
 
-		return df, X_train, X_test, y_train, y_test
+		return df, X_train, X_test, y_train, y_test, df_train, df_test
+
+if __name__ == "__main__":
+    # Get and clean data
+    data = Data()
+    df, X_train, X_test, y_train, y_test, df_train, df_test = data.clean_df()
+    print(df.shape, X_train.shape, X_test.shape, y_train.shape, y_test.shape, df_train.shape, df_test.shape)
