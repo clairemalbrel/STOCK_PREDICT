@@ -20,6 +20,9 @@ from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.preprocessing import RobustScaler, StandardScaler
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, mean_squared_error
+#from SentencePolarity.sentiment import Sentiment
+import tornado
+from SentencePolarity import sentiment
 
 # Own libraries
 from STOCK_PREDICT.data import Data
@@ -164,3 +167,4 @@ if __name__ == "__main__":
     print(accuracy)
     print(colored("############   Saving model    ############", "green"))
     t.save_model()
+

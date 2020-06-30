@@ -1,13 +1,10 @@
 ##########################################################################
 #     Reddit Scrap
 ##########################################################################
-
 import datetime as dt
 import json
 import requests
 import pandas as pd
-
-
 
 def reddit():
   text = []
