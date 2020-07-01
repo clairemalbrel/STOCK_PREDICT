@@ -106,10 +106,10 @@ class Predict:
 
     # change
     change = new
-    new =  new.sort_values('Date')
+    change =  change.sort_values('Date')
     change['target'] = change['Open'].pct_change()
-    change['target'] = change['target'].shift(-1)
     change['target'] = change['target'].apply(categorical)
+    change['target'] = change['target'].shift(-1)
     change = change[['Date','target']]
     return new, change
 
