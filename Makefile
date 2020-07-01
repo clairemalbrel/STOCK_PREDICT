@@ -64,7 +64,7 @@ pypi:
 # ----------------------------------
 #         HEROKU COMMANDS
 # ----------------------------------
-APP_NAME=taxifare-streamlit
+APP_NAME=dji_news_prediction
 streamlit:
 	-@streamlit run app_streamlit.py
 
