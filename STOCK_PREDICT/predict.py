@@ -103,10 +103,18 @@ class Predict:
     new.columns = ['Date','Open','High','Low','Close','Volume','Adj Close']
     new['Date'] = pd.to_datetime(new['Date'])
     new['Date'] = new['Date'].dt.date
-    return new
+
+    # change
+    change = new
+    new =  new.sort_values('Date')
+    change['target'] = change['Open'].pct_change()
+    change['target'] = change['target'].shift(-1)
+    change['target'] = change['target'].apply(categorical)
+    change = change[['Date','target']]
+    return new, change
 
   def merge(self):
-    new = self.reddit()
+    new, change = self.reddit()
     sentiment = self.sentiment
     sentiment['Date'] = pd.to_datetime(sentiment['Date'])
     sentiment['Date']  = sentiment['Date'].dt.date
@@ -124,6 +132,7 @@ class Predict:
     return scaled
 
   def pred(self, pipeline, X_train):
+    new, change = self.reddit()
     check, final = self.merge()
     scaled = self.scaling(X_train)
     pipeline = pipeline
@@ -132,6 +141,7 @@ class Predict:
       final['prediction'] = 'Rise'
     if res < 0:
       final['prediction'] = 'Fall'
+    final = final.merge(change)
     return final
 
 if __name__ == "__main__":
