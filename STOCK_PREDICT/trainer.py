@@ -153,7 +153,7 @@ class Trainer(object):
 if __name__ == "__main__":
     # Get and clean data
     data = Data()
-    df, X_train, X_test, y_train, y_test = data.clean_df()
+    df, X_train, X_test, y_train, y_test, df_train, df_test = data.clean_df()
     del df
     print("shape: {}".format(X_train.shape))
 
