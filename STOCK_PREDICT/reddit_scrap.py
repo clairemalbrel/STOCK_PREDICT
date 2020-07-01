@@ -5,8 +5,6 @@ import datetime as dt
 import json
 import requests
 import pandas as pd
-<<<<<<< HEAD
-
 
 
 def reddit():
@@ -25,4 +23,5 @@ def reddit():
   data = pd.DataFrame(text).T
   data.columns = name
   data = data.iloc[:,0:25]
+
   return data
