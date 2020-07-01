@@ -67,18 +67,37 @@ if analysis == "Project Presentation":
 
 if analysis == 'Prediction Tool':
   #This is the slider to select the day you want
-  option = st.selectbox('Which day do you like to consult?',df_prediction['Date'])
+  st.markdown("<h3 style='text-align: left; color: CornflowerBlue;'>Step 1: Choose the Day of Prediction.</h1>",unsafe_allow_html=True)
+  option = st.selectbox('Which day would you like to consult?',df_prediction['Date'])
 
   st.text("")
 
   #This gives you the prediction of our model: Rise/Decrease
+  st.markdown("<h3 style='text-align: left; color: CornflowerBlue;'>Step 2: Launch the Prediction.</h1>",unsafe_allow_html=True)
   name = 'The Dow Jones will ' + df_prediction['prediction'][0] + ' at the opening.'
   if st.button('CLICK HERE TO SEE OUR PREDICTION'):
-    st.markdown(name)
+    variable = st.markdown(name)
+    st.text("")
+    if variable == 'The Dow Jones will Decrease at the opening.':
+      st.write("<h3 style='text-align: center; color: Crimson;'>We recommend that you do not invest in a Dow Jones' tracker.</h1>",unsafe_allow_html=True)
+    else:
+      st.markdown("<h3 style='text-align: center; color: ForestGreen;'>We recommend that you invest in a Dow Jones' tracker.</h1>",unsafe_allow_html=True)
+
+
+
+  st.text("")
+  # This defines your investment strategy
+  #st.markdown("<h3 style='text-align: left; color: CornflowerBlue;'>Step 3: Define your investment strategy.</h1>",unsafe_allow_html=True)
+  #if st.checkbox('The Dow Jones Index is expected to rise'):
+  #  st.markdown("<h3 style='text-align: center; color: ForestGreen;'>We recommend that you invest in a Dow Jones' tracker.</h1>",unsafe_allow_html=True)
+  #st.text("")
+  #st.text("")
+  #if st.checkbox('The Dow Jones Index is expected to decrease'):
+  #  st.write("<h3 style='text-align: center; color: Crimson;'>We recommend that you do not invest in a Dow Jones' tracker.</h1>",unsafe_allow_html=True)
 
   st.text("")
 
   #This gives the bar chart of the Sentiment Scores the day before the prediction
-  st.markdown("<h1 style='text-align: left; color: CornflowerBlue;'>Yesterday's Sentiment Scores</h1>",unsafe_allow_html=True)
+  st.markdown("<h2 style='text-align: left; color: CornflowerBlue;'>Sentiment Scores of the Day before the Prediction</h1>",unsafe_allow_html=True)
   sentiment_score = df_prediction[['Subjectivity','Objectivity','Positive','Negative','Neutral']]
   st.bar_chart(sentiment_score.transpose())
