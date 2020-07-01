@@ -37,6 +37,7 @@ class Data:
 		#df_djia = pd.read_csv(df_djia)
 		#df_news = pd.read_csv(df_news)
 
+    #Rest of the team:
 		self.df_djia = pd.read_csv(f'{directory}data/datasets-129-792900-upload_DJIA_table.csv')
 		self.df_news = pd.read_csv(f'{directory}data/combined_stock_data.csv')
 
