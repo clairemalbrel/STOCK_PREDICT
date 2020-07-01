@@ -61,6 +61,7 @@ import warnings
 directory = str(Path.home()) + '/code/stock_market/STOCK_PREDICT/'
 if platform.system() == 'Windows':
   directory = directory.replace('\\' ,'/')
+directory2 = str(Path.home()) + '/code/stock_market/front/'
 
 
 class Predict:
@@ -159,5 +160,9 @@ if __name__ == "__main__":
   final = predict.pred(pipeline, X_train)
   print(final['prediction'])
   print(colored("############   Save Prediction   ############", "green"))
+  # save to backend
   final.to_csv('data2/final.csv', mode='a', header=False)
+  # save to frontend
+  final.to_csv(f'{directory2}data2/final.csv', mode='a', header=False)
+
   print('Prediction saved to csv')
