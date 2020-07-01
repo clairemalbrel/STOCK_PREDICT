@@ -66,7 +66,7 @@ if platform.system() == 'Windows':
 class Predict:
 
   def __init__(self):
-    self.sentiment = pd.read_csv(f'{directory}data/20200630_sentiment.csv')
+    self.sentiment = pd.read_csv(f'{directory}data2/sentiment_scores.csv')
 
   def reddit(self):
 
@@ -149,5 +149,5 @@ if __name__ == "__main__":
   final = predict.pred(pipeline, X_train)
   print(final['prediction'])
   print(colored("############   Save Prediction   ############", "green"))
-  final.to_csv('data/final.csv', mode='a', header=True)
+  final.to_csv('data2/final.csv', mode='a', header=False)
   print('Prediction saved to csv')
