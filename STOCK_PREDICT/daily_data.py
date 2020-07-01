@@ -100,5 +100,5 @@ y0.head()
 print(y0)
 #y0.to_csv('stock_predict_daily.csv')
 
-y0.to_csv('../data/daily_data.csv', mode='a', header=False)
+y0.to_csv('data/daily_data.csv', mode='a', header=False)
 
