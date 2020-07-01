@@ -16,7 +16,7 @@ from SentencePolarity.sentiment import Sentiment
 text = []
 name = []
 today = dt.datetime.combine(dt.date.today(), dt.datetime.min.time())
-response = requests.get('https://www.reddit.com/r/worldnews/top.json?limit=40', headers = {'User-agent': 'test'})
+response = requests.get('https://www.reddit.com/r/worldnews/top.json?limit=100', headers = {'User-agent': 'test'})
 tops = json.loads(response.text)['data']['children']
 i = 1
 for top in tops:
@@ -32,7 +32,7 @@ data = data.iloc[:,0:25]
 date = datetime.date(today)
 data.insert(loc=0, column='Date', value=date)
 
-
+print(len(data))
 ##########################################################################
 #    get sentiments
 ##########################################################################
@@ -61,4 +61,4 @@ for index, sentence in combined_stock_data['Para'].iteritems():
 ##########################################################################
 #     Generate csv
 ##########################################################################
-combined_stock_data.to_csv('data/combined_stock_data-test4.csv', mode='a', header=True)
+combined_stock_data.to_csv('data2/sentiment_scores.csv', mode='a', header=False)
