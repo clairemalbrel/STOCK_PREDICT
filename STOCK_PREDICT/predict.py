@@ -102,8 +102,8 @@ class Predict:
 
     new = pd.DataFrame(major_liste)
     new.columns = ['Date','Open','High','Low','Close','Volume','Adj Close']
-    new['Date'] = pd.to_datetime(new['Date'])
     new['Date'] = new['Date'].dt.date
+    new['Date'] = pd.to_datetime(new['Date'])
 
     # change
     change = new
@@ -117,8 +117,7 @@ class Predict:
   def merge(self):
     new, change = self.reddit()
     sentiment = self.sentiment
-    sentiment['Date'] = pd.to_datetime(sentiment['Date'])
-    sentiment['Date']  = sentiment['Date'].dt.date
+    sentiment['Date'] = pd.to_datetime(sentiment['Date'], format="%d/%m/%Y")
     check = sentiment.merge(new)
     final = check[['Date','Subjectivity','Objectivity','Positive','Negative','Neutral','Open','High','Low','Close','Volume','Adj Close']]
     check = check.iloc[:,27:]
@@ -138,10 +137,7 @@ class Predict:
     scaled = self.scaling(X_train)
     pipeline = pipeline
     res = pipeline.predict(scaled)
-    if res > 0:
-      final['prediction'] = 'Rise'
-    if res < 0:
-      final['prediction'] = 'Fall'
+    final['prediction'] = res
     final = final.merge(change)
     return final
 
@@ -161,7 +157,7 @@ if __name__ == "__main__":
   print(final['prediction'])
   print(colored("############   Save Prediction   ############", "green"))
   # save to backend
-  final.to_csv('data2/final.csv', mode='a', header=False)
+  final.to_csv('data2/final_saved.csv', mode='a', header=False)
   # save to frontend
   final.to_csv(f'{directory2}data2/final.csv', mode='a', header=False)
 
